@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}
+    Catégories
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/EMPLOI_FORMATION/2023/FORMATION/HUMAN BOOSTER/Cours/php_2/symfony_theater/src/Controller/CategoryController.php'|file_link(0) }}">src/Controller/CategoryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/EMPLOI_FORMATION/2023/FORMATION/HUMAN BOOSTER/Cours/php_2/symfony_theater/templates/category/index.html.twig'|file_link(0) }}">templates/category/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container mx-auto max-w-2xl p-4">
+        {% for category in categories %}
+            <div class="bg-white p-6 mb-4 shadow-md rounded-md">
+                <h2 class="text-lg font-semibold text-gray-800">{{ category.name }}</h2>
+            </div>
+        {% else %}
+            <p class="text-gray-700">Aucune catégorie trouvée</p>
+        {% endfor %}
+    </div>
 {% endblock %}
