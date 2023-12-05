@@ -31,4 +31,28 @@ class ArticleController extends AbstractController
     'article' => $article,
             ]);
         }
+        #[Route('/articles/new',name: 'new_article' )]
+        public function new(Request $request, EntityManagerInterface $em) : Response
+     
+        {
+            $article = new Article();
+    
+            $form = $this->createForm(ArticleType::class, $article);
+            $form -> handleRequest($request);
+    
+    if ($form ->isSubmitted() && $form ->isValid())
+    {
+        
+        $article->setCreatedOn(new \DateTime());
+        $article->setVisible(true);
+       
+
+        $em->persist($article);
+        $em-> flush();
+    
+        return $this ->redirectToRoute('home');
+    }
+    return $this->renderForm("article/new.html.twig",
+            ['article_form' => $form]);
+        }
     }
