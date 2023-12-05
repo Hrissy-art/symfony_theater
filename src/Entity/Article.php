@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,14 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Category $category = null;
+
+    #[ORM\ManyToMany(targetEntity: Theater::class, inversedBy: 'articles')]
+    private Collection $theatres;
+
+    public function __construct()
+    {
+        $this->theatres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +115,30 @@ class Article
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Theater>
+     */
+    public function getTheatres(): Collection
+    {
+        return $this->theatres;
+    }
+
+    public function addTheatre(Theater $theatre): static
+    {
+        if (!$this->theatres->contains($theatre)) {
+            $this->theatres->add($theatre);
+        }
+
+        return $this;
+    }
+
+    public function removeTheatre(Theater $theatre): static
+    {
+        $this->theatres->removeElement($theatre);
 
         return $this;
     }
