@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Theater;
-// use App\Entity\User;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -44,38 +44,38 @@ class AppFixtures extends Fixture
             $categories[] = $category;
         }
 
-        // $users = [];
-        // $regularuser = new User ();
-        // $regularuser->setEmail("test@example.com");
+        $users = [];
+        $regularuser = new User ();
+        $regularuser->setEmail("test@example.com");
        
-        // $regularuser->setPassword(
-        //     $this->userPasswordHasherInterface->hashPassword(
-        //         $regularuser, "test_pass"
+        $regularuser->setPassword(
+            $this->userPasswordHasherInterface->hashPassword(
+                $regularuser, "test_pass"
 
-        //     )
-        // );
-        // $regularuser->setRoles(
-        //     ['ROLE_USER']
-        // );
-        // $manager->persist($regularuser);
-        // $manager->flush();
-        // $user = new User();
-        // $user->setEmail("admin@example.com");
+            )
+        );
+        $regularuser->setRoles(
+            ['ROLE_USER']
+        );
+        $manager->persist($regularuser);
+        $manager->flush();
+        $user = new User();
+        $user->setEmail("admin@example.com");
        
-        // $user->setPassword(
-        //     $this->userPasswordHasherInterface->hashPassword(
-        //         $user, "test_pass"
+        $user->setPassword(
+            $this->userPasswordHasherInterface->hashPassword(
+                $user, "test_pass"
 
-        //     )
-        // );
-        // $user->setRoles(
-        //     ['ROLE_ADMIN']
-        // );
+            )
+        );
+        $user->setRoles(
+            ['ROLE_ADMIN']
+        );
 
-        // $manager->persist($user);
-        // $manager->flush();
+        $manager->persist($user);
+        $manager->flush();
 
-        // $users = [$regularuser, $user];
+        $users = [$regularuser, $user];
 
      for ($i = 0; $i < 150; $i++)
      {$article = new Article ();
