@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
      $article -> setCategory ($faker -> randomElement($categories));
      $article -> setSummaryShow ($faker->realTextBetween(20,30));
      $article -> setImg ($faker->imageUrl());
-    //  $article -> setUser ($faker -> randomElement($users));
+     $article -> setUser ($faker -> randomElement($users));
 
      $manager->persist($article);
 
