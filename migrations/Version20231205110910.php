@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231205103107 extends AbstractMigration
+final class Version20231205110910 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -39,6 +39,5 @@ final class Version20231205103107 extends AbstractMigration
         $this->addSql('DROP TABLE article_theater');
         $this->addSql('DROP TABLE category');
         $this->addSql('DROP TABLE theater');
-        $this->addSql('DROP TABLE messenger_messages');
     }
 }
