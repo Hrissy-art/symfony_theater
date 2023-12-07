@@ -49,4 +49,19 @@ class CategoryController extends AbstractController
             ['form_cat' => $form]
         );
     }
+    #[Route('/theater/new', name: 'new_theater')]
+    public function add(Request $request, EntityManagerInterface $entity): Response
+    {
+        $theater = new Theater();
+        $form = $this->createForm(TheaterType ::class, $theater);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entity->persist($theater);
+            $entity->flush();
+        }
+        return $this->renderForm(
+            'category/theater.html.twig',
+            ['form_theater' => $form]
+        );
+    }
 }

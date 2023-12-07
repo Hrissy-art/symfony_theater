@@ -45,8 +45,7 @@ class ArticleController extends AbstractController
         
         $article->setCreatedOn(new \DateTime());
         $article->setVisible(true);
-       
-
+        
         $em->persist($article);
         $em-> flush();
     
@@ -69,4 +68,5 @@ class ArticleController extends AbstractController
     
             return $this->render('article/me.html.twig', ['articles' => $articles]);
         }
+        
     }
