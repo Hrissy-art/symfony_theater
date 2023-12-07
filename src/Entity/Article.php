@@ -30,6 +30,17 @@ class Article
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
+    public function getImgFilename(): string
+    {
+        return $this->img;
+    }
+
+    public function setImgFilename(string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Category $category = null;
