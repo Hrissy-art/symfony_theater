@@ -22,9 +22,9 @@ Dans la navbar j'ai la possibilité d'afficher la liste des catégories de mes a
 
 ## La création d'un article 
 Dans le contrôller Articles j'ai défini la Route de création d'un nouvel article: 
-**/articles/new**
-L'auteur pourrait égalemnt ajouter un image qui est stocké dans le dossier public->img
-Chaque utilisateur authentifié pourrait creer un nouvel article. Toutefois la modification d'un article déjà existant n'est possible que par l'administrateur. 
+**/articles/new** Le chemin vers cette fonctionnalité est uniquement possible quand l'utilisateur est identifié. Il apparait dans la navbar à ce moment là. 
+L'auteur pourrait égalemnt ajouter une image qui est stocké dans le dossier public->img
+Chaque utilisateur authentifié pourrait creer un nouvel article. Toutefois la modification d'un article déjà existant n'est possible que par l'administrateur via le préfixe url **admin/article/crud** Si l'utilisateur est connecté en tant que admin uniquement, il a la possibilité de modifier les articles. Le lien vers cette foinctionnalité apparait dans la navbar.  
 Cela nous amène à l'étape suivante - la gestion de la sécurité. 
 ## Sécurité 
 ### Système d'authetification
@@ -32,21 +32,27 @@ A l'aide de la commande **make:auth**  j'ai pu mettre en place un système d'aut
 les mots de passe des personnes inscrites sont hashées toujours à l'aide des fixtures et plus concrétement en utilisant l'interface du PasswordHasher. 
 
 ### Le contrôle d'accès
+#### Authentification de base 
+ la fonctionnalité d'authentification permet une meilleure gestion de la page de connexion (/login) en affichant un formulaire de connexion, en gérant les erreurs d'authentification. La déconnexion (/logout) est également géré. 
+ Dans la navbar je peux cliquer sur log in. Si l'utilisateur est connecté, et si c'est le cas, le nom d'utilisateur ou l'identifiant unique de l'utilisateur sera affiché avec {{ app.user.userIdentifier }} pendant toute la durée de la connexion. 
+#### confoguration dans security.yaml 
  je me suis servie de l'attribut Route au niveau de la classe "Articles", afin de définir le préfixe d'URL
  Ensuite j'ai configuré le fichier **security.yaml** en modifiant la partie -"access_control:" 
- Cette manipulation m'a permit de restreindre tout ce qui commence par /admin au rôle ROLE_ADMIN - { path: ^/admin, roles: ROLE_ADMIN }
+ Cette manipulation m'a permit de restreindre tout ce qui commence par /admin/article/crud au rôle ROLE_ADMIN - { path: ^/admin/article/crud, roles: ROLE_ADMIN }
  Les Utilisateurs connectés uniquement (peu importe le rôle)
  roles: IS_AUTHENTICATED_FULLY
- Dans le controller - security je définis un côntrole plus fin  denyAccessUnlessGranted si l'utilisateur n'a pas le droit d'accès une erreur 403 Forbidden est générée 
- gère la page de connexion (/login) en affichant un formulaire de connexion, en gérant les erreurs d'authentification, et il gère également la déconnexion (/logout).
-
-  ### Ajout d'un nouvel article 
-
+ #### Usage de la méthode utilitaire $this->getUser().
+ Dans le controller -Article je définis un côntrole plus fin  à l'aide de **denyAccessUnlessGranted** Je peux afficher uniquement les articles rédigés par l'utilisateur authetifié.  
 
  ### Inscription à la newsletter
- Mailer 
- Je dispose d'un container Docker dont le port 25 (SMTP) a été mappé vers votre port 7321
+Grâce à MailerInterface je peux paramètrer une réponse automatique à chaque nouvelle souscription à la newsletter.  
+ Je dispose d'un container Docker dont le port 25 (SMTP) a été mappé vers le port 7321
 
-## Problèmes rencontrés 
-- pour l'upload de l'image -modifier le fichier php.ini
-pour la modification de l'image 
+## Problèmes rencontrés et perspectives
+### Problèmes
+Quand j'ai parametré l'upload de mon image j'ai du également modifier le fichier php.ini Je devais authoriser l'extension php_fileinfo. Au début je ne trouvais paspourquoi la manipulation ne fonctionnait pas. 
+Concernant l'édition d'un article déjà existant j'ai paramétré un deuxième formulaire qui s'appelle Article1Type 
+Toutefois afin de pouvoir modifier l'image je dois en plus créer un transformateur de modèle. Je n'ai pas eu le temps d'ajouter cette possibilité donc pour le moment l'édition est possible sur tous les aspects de l'article sauf l'image. 
+
+### Perspectives
+Afin de simplifier la gestion de mon interface ce sera plus simple d'utiliser le bundle Symfony - EasyAdmin. toutefois afin de m'entrainer à l'exercice je voulais gérer mon interface différemment. 
