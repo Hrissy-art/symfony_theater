@@ -1,4 +1,4 @@
-# Projet de backend fait avec Symfony
+# Projet de backend fait avec Symfony **/English version below/**
 Projet de création de la partie backend d'un Site Web sur l'actualité de théâtre dans l'agglomération lyonnaise. Exercice backend réalisé avec le framework "Symfony".
 
 ## Déscription de la structure du projet
@@ -59,3 +59,56 @@ Toutefois afin de pouvoir modifier l'image je dois en plus créer un transformat
 Afin de simplifier la gestion de mon interface ce sera plus simple d'utiliser le bundle Symfony - EasyAdmin. toutefois afin de m'entrainer à l'exercice je voulais gérer mon interface différemment. 
 
 Je pourrais également créer un événement subscriber pour le hashage des mots de passe. 
+
+**/English version/** 
+
+# Backend Project with Symfony 
+
+## Project Structure Description
+
+For this project, I chose to create a database containing six entities. The list of entities includes:
+
+Article: Intended to store data related to theater news articles.
+Theater: Stores data related to theater venue names. (There is a ManyToMany relationship between Article and Theater entities.)
+Category: Contains data related to types of articles.
+Newsletter: Stores emails of subscribed users with the subscription date and a boolean confirming the subscription.
+User: An entity generated with the make:user command for user management. This table is linked to the User table.
+
+## Data
+I used the "fixtures" functionality in the AppFixtures.php file to populate the tables with automatically generated data. Specifically, I utilized the Faker library to fill columns with random content. This brings us to the second important aspect of my project - security management.
+
+## Display
+I defined a route in the Article controller with the URL prefix /articles/me. This route allows the display of articles by the author. For example, if I log in as an administrator, I can view articles written by the administrator. If I log in as a regular user, I can access articles written by that user. In the securite.yaml file, I allow access to this information for any authenticated user (regular user or administrator). Note: This point will be further developed in the security section.
+
+In the navbar, I have the option to display the list of categories for my articles. Then I can select a category to display the articles associated with it. This is possible thanks to the use of loops in the corresponding Twig templates.
+
+## Creating an Article
+In the Articles controller, I defined the route for creating a new article: /articles/new. Access to this functionality is only possible when the user is identified. It appears in the navbar at that time. The author could also add an image, which is stored in the public/img folder. Each authenticated user can create a new article. However, the modification of an existing article is only possible by the administrator via the URL prefix admin/article/crud. If the user is connected as an admin only, they have the option to modify articles. The link to this functionality appears in the navbar. This brings us to the next step - security management.
+
+## Security
+
+### Authentication System
+
+With the make:auth command, I was able to set up a basic authentication system. The passwords of registered users are hashed using fixtures and specifically using the PasswordHasher interface.
+
+### Access Control
+
+#### Basic Authentication: The authentication feature allows better management of the login page (/login) by displaying a login form and handling authentication errors. Logout (/logout) is also managed. In the navbar, I can click on log in. If the user is connected, and if so, the username or unique identifier of the user will be displayed with {{ app.user.userIdentifier }} for the duration of the connection.
+
+#### Configuration in security.yaml: I used the Route attribute at the class level in the "Articles" class to define the URL prefix. Then I configured the security.yaml file by modifying the access_control section. This manipulation allowed me to restrict anything starting with /admin/article/crud to the ROLE_ADMIN role - { path: ^/admin/article/crud, roles: ROLE_ADMIN }. Access is granted to authenticated users only (regardless of the role) - roles: IS_AUTHENTICATED_FULLY.
+
+#### Use of the utility method $this->getUser(): In the Article controller, I define a finer control using denyAccessUnlessGranted. I can display only the articles written by the authenticated user.
+
+## Newsletter Subscription
+
+Thanks to MailerInterface, I can set up an automatic response for each new subscription to the newsletter. I have a Docker container whose port 25 (SMTP) has been mapped to port 7321.
+
+## Challenges Encountered and Perspectives
+
+### Challenges
+When I configured the upload of my image, I also had to modify the php.ini file. I had to allow the php_fileinfo extension. Initially, I couldn't find why the manipulation was not working.
+Regarding the editing of an existing article, I set up a second form called Article1Type. However, to be able to edit the image, I also have to create a model transformer. I didn't have time to add this possibility, so for now, editing is possible on all aspects of the article except the image.
+
+### Perspectives
+To simplify the management of my interface, it will be easier to use the Symfony bundle - EasyAdmin. However, to practice the exercise, I wanted to manage my interface differently.
+I could also create an event subscriber for password hashing.
