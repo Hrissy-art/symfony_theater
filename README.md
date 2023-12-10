@@ -51,8 +51,11 @@ Grâce à MailerInterface je peux paramètrer une réponse automatique à chaque
 ## Problèmes rencontrés et perspectives
 ### Problèmes
 Quand j'ai parametré l'upload de mon image j'ai du également modifier le fichier php.ini Je devais authoriser l'extension php_fileinfo. Au début je ne trouvais paspourquoi la manipulation ne fonctionnait pas. 
+
 Concernant l'édition d'un article déjà existant j'ai paramétré un deuxième formulaire qui s'appelle Article1Type 
 Toutefois afin de pouvoir modifier l'image je dois en plus créer un transformateur de modèle. Je n'ai pas eu le temps d'ajouter cette possibilité donc pour le moment l'édition est possible sur tous les aspects de l'article sauf l'image. 
 
 ### Perspectives
 Afin de simplifier la gestion de mon interface ce sera plus simple d'utiliser le bundle Symfony - EasyAdmin. toutefois afin de m'entrainer à l'exercice je voulais gérer mon interface différemment. 
+
+Je pourrais également créer un événement subscriber pour le hashage des mots de passe. 
