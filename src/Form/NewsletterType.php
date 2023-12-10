@@ -16,7 +16,11 @@ class NewsletterType extends AbstractType
         $builder
             ->add('email', EmailType::class)
             ->add('submit', SubmitType::class, [
-                'label' => 'Inscription'
+                'label' => 'Inscription',
+                    'attr' => [
+                        'class' => 'bg-blue-600 hover:bg-blue-800 text-white px-5 py-2'
+                    ]
+                
             ])
         ;
     }

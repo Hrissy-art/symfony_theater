@@ -39,7 +39,11 @@ class ArticleType extends AbstractType
                 'multiple' => true
             ])
 
-            ->add('Save', SubmitType::class, []);
+            ->add('Save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'bg-blue-600 hover:bg-blue-800 text-white px-5 py-2'
+                ]
+            ]);
         ;
     }
 
