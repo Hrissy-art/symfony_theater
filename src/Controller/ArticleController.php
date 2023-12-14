@@ -74,7 +74,8 @@ class ArticleController extends AbstractController
         }
         $em->persist($article);
         $em-> flush();
-    
+        $this->addFlash('success', 'Article créé avec succès!');
+
         return $this ->redirectToRoute('home');
     }
     return $this->renderForm("article/new.html.twig",

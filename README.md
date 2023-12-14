@@ -18,13 +18,13 @@ Cela m'amène au deuxième point important de mon projet - la gestion de la séc
 J'ai défini une ROUTE dans le contrôleur Article avec comme préfixe l'URL suivant:  **/articles/me** 
 Cette route permet l'affichage des articles par auteur. Par exemple si je me connecte en tant que administrateur je peux visualiser les articles rédigés par l'administrateur si je me connecte en tant que utilisateur régulier je pourrais accéder aux articles rédigés par l'utilisateur. Dans le fichier **securite.yaml** je permets donc l'accès à ces informations pour tout utilisateur (utilisateur régulier ou administrateur) authentifié. NB, Ce point sera plus dévéloppé dans la partie concernant la sécurité. 
 
-Dans la navbar j'ai la possibilité d'afficher la liste des catégories de mes articles. ensuite je peux séléctionner une catégorie afin d'afficher les articles qui lui sont assosiés. Ceci est possible grâce à l'usage des boucles dans les twigs correspondant. 
+Dans la navbar j'ai la possibilité d'afficher la liste des catégories de mes articles. Ensuite je peux séléctionner une catégorie afin d'afficher les articles qui lui sont assosiés. Ceci est possible grâce à l'usage des boucles dans les twigs correspondant. 
 
 ## La création d'un article 
 Dans le contrôller Articles j'ai défini la Route de création d'un nouvel article: 
 **/articles/new** Le chemin vers cette fonctionnalité est uniquement possible quand l'utilisateur est identifié. Il apparait dans la navbar à ce moment là. 
 L'auteur pourrait égalemnt ajouter une image qui est stocké dans le dossier public->img
-Chaque utilisateur authentifié pourrait creer un nouvel article. Toutefois la modification d'un article déjà existant n'est possible que par l'administrateur via le préfixe url **admin/article/crud** Si l'utilisateur est connecté en tant que admin uniquement, il a la possibilité de modifier les articles. Le lien vers cette foinctionnalité apparait dans la navbar.  
+Chaque utilisateur authentifié pourrait creer un nouvel article. A la création d'un nouvel article **un message flash** se déclenche pour féliciter l'utilisateur de la création.  Toutefois la modification d'un article déjà existant n'est possible que par l'administrateur via le préfixe url **admin/article/crud** Si l'utilisateur est connecté en tant que admin uniquement, il a la possibilité de modifier les articles. Le lien vers cette foinctionnalité apparait dans la navbar.  
 Cela nous amène à l'étape suivante - la gestion de la sécurité. 
 ## Sécurité 
 ### Système d'authetification
