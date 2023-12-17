@@ -16,7 +16,7 @@ Cela m'amène au deuxième point important de mon projet - la gestion de la séc
 
 ## Affichage
 J'ai défini une ROUTE dans le contrôleur Article avec comme préfixe l'URL suivant:  **/articles/me** 
-Cette route permet l'affichage des articles par auteur. Par exemple si je me connecte en tant que administrateur je peux visualiser les articles rédigés par l'administrateur si je me connecte en tant que utilisateur régulier je pourrais accéder aux articles rédigés par l'utilisateur. Dans le fichier **securite.yaml** je permets donc l'accès à ces informations pour tout utilisateur (utilisateur régulier ou administrateur) authentifié. NB, Ce point sera plus dévéloppé dans la partie concernant la sécurité. 
+Cette route permet l'affichage des articles par auteur. Par exemple si je me connecte en tant que administrateur **(id: admin@example.com , mdp: test_pass)** je peux visualiser les articles rédigés par l'administrateur si je me connecte en tant que utilisateur régulier **(id: test@example.com , mdp: test_pass)** je pourrais accéder aux articles rédigés par l'utilisateur. Dans le fichier **securite.yaml** je permets donc l'accès à ces informations pour tout utilisateur (utilisateur régulier ou administrateur) authentifié. NB, Ce point sera plus dévéloppé dans la partie concernant la sécurité. 
 
 Dans la navbar j'ai la possibilité d'afficher la liste des catégories de mes articles. Ensuite je peux séléctionner une catégorie afin d'afficher les articles qui lui sont assosiés. Ceci est possible grâce à l'usage des boucles dans les twigs correspondant. 
 
@@ -78,12 +78,12 @@ User: An entity generated with the make:user command for user management. This t
 I used the "fixtures" functionality in the AppFixtures.php file to populate the tables with automatically generated data. Specifically, I utilized the Faker library to fill columns with random content. This brings us to the second important aspect of my project - security management.
 
 ## Display
-I defined a route in the Article controller with the URL prefix /articles/me. This route allows the display of articles by the author. For example, if I log in as an administrator, I can view articles written by the administrator. If I log in as a regular user, I can access articles written by that user. In the securite.yaml file, I allow access to this information for any authenticated user (regular user or administrator). Note: This point will be further developed in the security section.
+I defined a route in the Article controller with the URL prefix /articles/me. This route allows the display of articles by the author. For example, if I log in as an administrator **(id: admin@example.com , password: test_pass)**, I can view articles written by the administrator. If I log in as a regular user **(id: test@example.com , mdp: test_pass)**, I can access articles written by that user. In the securite.yaml file, I allow access to this information for any authenticated user (regular user or administrator). Note: This point will be further developed in the security section.
 
 In the navbar, I have the option to display the list of categories for my articles. Then I can select a category to display the articles associated with it. This is possible thanks to the use of loops in the corresponding Twig templates.
 
 ## Creating an Article
-In the Articles controller, I defined the route for creating a new article: /articles/new. Access to this functionality is only possible when the user is identified. It appears in the navbar at that time. The author could also add an image, which is stored in the public/img folder. Each authenticated user can create a new article. However, the modification of an existing article is only possible by the administrator via the URL prefix admin/article/crud. If the user is connected as an admin only, they have the option to modify articles. The link to this functionality appears in the navbar. This brings us to the next step - security management.
+In the Articles controller, I defined the route for creating a new article: /articles/new. Access to this functionality is only possible when the user is identified. It appears in the navbar at that time. The author could also add an image, which is stored in the public/img folder. Each authenticated user can create a new article. However, the modification of an existing article is only possible by the administrator via the URL prefix admin/article/crud. If the user is connected as an admin only , they have the option to modify articles. The link to this functionality appears in the navbar. This brings us to the next step - security management.
 
 ## Security
 
